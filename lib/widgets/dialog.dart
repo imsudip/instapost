@@ -123,7 +123,7 @@ class _CustomOffsetAnimationState extends State<CustomOffsetAnimation> {
   @override
   void initState() {
     tweenOffset = Tween<Offset>(
-      begin: const Offset(0.0, 0.8),
+      begin: const Offset(0.0, 0.0),
       end: Offset.zero,
     );
     tweenScale = Tween<double>(begin: 0.3, end: 1.0);

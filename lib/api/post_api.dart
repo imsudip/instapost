@@ -13,7 +13,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
 
-login(User user, AuthNotifier authNotifier) async {
+login(User user, AuthNotifier authNotifier,BuildContext context) async {
   AuthResult authResult = await FirebaseAuth.instance
       .signInWithEmailAndPassword(email: user.email, password: user.password)
       .catchError((error) => BotToast.showText(text: "${error.toString()}"));
@@ -24,12 +24,15 @@ login(User user, AuthNotifier authNotifier) async {
     if (firebaseUser != null) {
       print("Log In: $firebaseUser");
       authNotifier.setUser(firebaseUser);
+      
       BotToast.showText(text: "Login Successful");
+      Navigator.of(context).pop();
     }
   }
 }
 
-signup(User user, AuthNotifier authNotifier) async {
+signup(User user, AuthNotifier authNotifier,BuildContext context) async {
+ 
   AuthResult authResult = await FirebaseAuth.instance
       .createUserWithEmailAndPassword(email: user.email, password: user.password)
       .catchError((error) => BotToast.showText(text: "${error.code.toString()}"));
@@ -53,6 +56,7 @@ signup(User user, AuthNotifier authNotifier) async {
       user.image="https://firebasestorage.googleapis.com/v0/b/instapost-post.appspot.com/o/placeholder%2Fplaceholder.png?alt=media&token=ca135aa5-da1e-48c2-af9a-abb1fb777d6a";
       createUserData(user, false,authNotifier, (){});
       BotToast.showText(text: "SignUp Successful");
+      Navigator.of(context).pop();
       //authNotifier.setCurrentUserId(currentUser.uid);
     }
   }

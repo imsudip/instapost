@@ -5,8 +5,10 @@ import 'package:instapost/colors.dart';
 import 'package:instapost/model/user.dart';
 import 'package:instapost/notifier/auth_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:instapost/widgets/dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:instapost/widgets/post_widget.dart';
+
 enum AuthMode { Signup, Login }
 
 class Login extends StatefulWidget {
@@ -25,7 +27,6 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    
     super.initState();
     //userList = [];
   }
@@ -34,17 +35,34 @@ class _LoginState extends State<Login> {
     if (!_formKey.currentState.validate()) {
       return;
     }
-
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Container(
+         height: 50,
+         width: 50,
+          child: Center(
+            child: CupertinoActivityIndicator(),
+          ),
+        ),
+        
+      ),
+    );
+    
     _formKey.currentState.save();
 
     AuthNotifier authNotifier =
         Provider.of<AuthNotifier>(context, listen: false);
 
     if (_authMode == AuthMode.Login) {
-      login(_user, authNotifier);
+      
+      login(_user, authNotifier,context);
+      
     } else {
-      signup(_user, authNotifier);
+      
+      signup(_user, authNotifier,context);
     }
+     //Navigator.of(context).pop();
   }
 
   Widget _buildDisplayNameField() {
@@ -207,7 +225,8 @@ class _LoginState extends State<Login> {
                           onPressed: () => _submitForm()),
                       SizedBox(height: 20),
                       CupertinoButton(
-                           padding: EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 15),
                           color: CupertinoColors.activeBlue,
                           borderRadius: BorderRadius.circular(25),
                           child: Text(
