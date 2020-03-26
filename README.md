@@ -3,8 +3,11 @@
 A Social media app developed using flutter
 
 ## Features
- *upload photos
- * A beautiful ui
+ * Login with Email
+ * Upload photos
+ * A beautiful UI
  * Post editing and Deleting
+ * View Account of Others
+ * Change username
 ## ScreenShots
-![](images/Screenshot_20200326-105009.png)
+![signin](images/1.png)    ![signin](images/5.png)     ![signin](images/4.png)       ![signin](images/3.png)
